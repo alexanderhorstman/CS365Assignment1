@@ -1,16 +1,34 @@
 
 public class Answer {
 	
-	private boolean A = false;
-	private boolean B = false;
-	private boolean C = false;
-	private boolean D = false;
-	private boolean E = false;
-	private boolean F = false;
-	private boolean G = false;
-	private boolean H = false;
-	private boolean I = false;
+	private boolean A = false; //true if A is a valid answer
+	private boolean B = false; //true if B is a valid answer
+	private boolean C = false; //true if C is a valid answer
+	private boolean D = false; //true if D is a valid answer
+	private boolean E = false; //true if E is a valid answer
+	private boolean F = false; //true if F is a valid answer
+	private boolean G = false; //true if G is a valid answer
+	private boolean H = false; //true if H is a valid answer
+	private boolean I = false; //true if I is a valid answer
 	
+	//default constructor does nothing
+	public Answer() {}
+	
+	//sets all values to false
+	public void clearAnswers() {
+		A = false;
+		B = false;
+		C = false;
+		D = false;
+		E = false;
+		F = false;
+		G = false;
+		H = false;
+		I = false;
+	}
+	
+	//returns a boolean based on whether the answerId corresponds to a correct answer
+	//answers are ordered from A to I (0 to 8)
 	public boolean getAnswer(int answerId) {
 		if(answerId == 0) {
 			return A;
@@ -44,6 +62,8 @@ public class Answer {
 		}
 	}
 	
+	//sets the answer that corresponds to the answerId to true
+	//answers are ordered from A to I (0 to 8)
 	public void setAnswer(int answerId) {
 		if(answerId == 0) {
 			A = true;
@@ -74,24 +94,7 @@ public class Answer {
 		}
 	}
 	
-	public boolean equals(Answer possibleAnswer) {
-		return (possibleAnswer.A == this.A) && (possibleAnswer.B == this.B) && (possibleAnswer.C == this.C) 
-				&& (possibleAnswer.D == this.D) && (possibleAnswer.E == this.E) && (possibleAnswer.F == this.F) 
-				&& (possibleAnswer.G == this.G) && (possibleAnswer.H == this.H) && (possibleAnswer.I == this.I); 
-	}
-	
-	public void clearAnswers() {
-		A = false;
-		B = false;
-		C = false;
-		D = false;
-		E = false;
-		F = false;
-		G = false;
-		H = false;
-		I = false;
-	}
-	
+	//returns a human readable representation of the correct answers
 	public String toString() {
 		String string = ""; 
 		if(A) {

@@ -4,17 +4,17 @@ import java.util.Random;
 
 public class IVoteService implements IVoteInterface {
 	
-	private int AVotes;
-	private int BVotes;
-	private int CVotes;
-	private int DVotes;
-	private int EVotes;
-	private int FVotes;
-	private int GVotes;
-	private int HVotes;
-	private int IVotes;
-	private Question currentQuestion;
-	private List<Student> studentList = new ArrayList<Student>();
+	private int AVotes; //number of votes answer A received
+	private int BVotes; //number of votes answer B received
+	private int CVotes; //number of votes answer C received
+	private int DVotes; //number of votes answer D received
+	private int EVotes; //number of votes answer E received
+	private int FVotes; //number of votes answer F received
+	private int GVotes; //number of votes answer G received
+	private int HVotes; //number of votes answer H received
+	private int IVotes; //number of votes answer I received
+	private QuestionInterface currentQuestion; //the question students are currently answering
+	private List<Student> studentList = new ArrayList<Student>(); //the list of students that are using the IVoteService
 	
 	public IVoteService() {
 		Random random = new Random();
@@ -26,32 +26,8 @@ public class IVoteService implements IVoteInterface {
 		}
 	}
 	
-	public List<Student> getStudentList() {
-		return studentList;
-	}
-	
-	public String outputResults() {
-		System.out.println("Number of students: " + studentList.size());
-		
-		String result = ""; 
-		result += "A: " + AVotes + "\nB: " + BVotes + "\nC: " + CVotes + "\nD: " + DVotes + "\nE: " 
-		+ EVotes + "\nF: " + FVotes + "\nG: " + GVotes + "\nH: " + HVotes + "\nI: " + IVotes;
-		System.out.println(currentQuestion.toString() + "\n" + result);
-		return result;
-	}
-	
-	public void applyStudentAnswers() {
-		for(Student s: studentList) {
-			Answer studentAnswer = s.getGivenAnswer();
-			//step through all of the possible answers the student could have given 
-			for(int i = 0; i < currentQuestion.getNumberOfAnswers(); i++) {
-				if(studentAnswer.getAnswer(i)) {
-					addOneToAnswerTotal(i);
-				}
-			}
-		}
-	}
-	
+	//adds one to the count from the given answerId
+	//answers are ordered from A to I (0 to 8)
 	private void addOneToAnswerTotal(int answerId) {
 		if(answerId == 0) {
 			AVotes++;
@@ -82,11 +58,43 @@ public class IVoteService implements IVoteInterface {
 		}
 	}
 	
-	public Question getQuestion() {
+	//adds one to the count for each answer from the student's answers
+	private void applyStudentAnswers() {
+		for(Student s: studentList) {
+			Answer studentAnswer = s.getGivenAnswer();
+			//step through all of the possible answers the student could have given 
+			for(int i = 0; i < currentQuestion.getNumberOfAnswers(); i++) {
+				if(studentAnswer.getAnswer(i)) {
+					addOneToAnswerTotal(i);
+				}
+			}
+		}
+	}
+	
+	//returns the question that is currently being answered
+	public QuestionInterface getQuestion() {
 		return currentQuestion;
 	}
 	
-	public void setQuestion(Question newQuestion) {
+	//returns the list of students that are using the IVoteService
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+	
+	//counts the number of votes each answer received from the question and outputs the number 
+	//that each answer received.
+	public String outputResults() {
+		applyStudentAnswers();
+		System.out.println("Number of students: " + studentList.size());
+		String result = ""; 
+		result += "A: " + AVotes + "\nB: " + BVotes + "\nC: " + CVotes + "\nD: " + DVotes + "\nE: " 
+		+ EVotes + "\nF: " + FVotes + "\nG: " + GVotes + "\nH: " + HVotes + "\nI: " + IVotes;
+		System.out.println(currentQuestion.toString() + "\n" + result);
+		return result;
+	}
+	
+	//sets the new question to be answered
+	public void setQuestion(QuestionInterface newQuestion) {
 		this.currentQuestion = newQuestion;
 	}
 
