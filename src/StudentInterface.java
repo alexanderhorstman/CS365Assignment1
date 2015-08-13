@@ -1,12 +1,6 @@
 
 public interface StudentInterface {
 	
-	public int getId();
+	public void submitAnswer(int numberOfPossibleAnswers, int numberOfCorrectAnswers);
 	
-	public Answer generateAnswer(int questionType, int numberOfAnswers);
-	
-	public void submitAnswer(IVoteService iVoteService);
-	
-	
-
 }
